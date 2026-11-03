@@ -66,10 +66,11 @@ class FemtechController extends Controller
             $patient = Patient::where('phone', '0771234567')
                 ->orWhere('email', 'patientdemo@chiremba.com')
                 ->first();
-            if ($patient) {
-                Session::put('user_id', $patient->id);
-                Session::put('profile_pic', $patient->profile_pic);
-            }
+        }
+        if ($patient) {
+            Session::put('user_id', $patient->id);
+            Session::put('role_id', '1');
+            Session::put('profile_pic', $patient->profile_pic);
         }
         $anonToken = Session::get('srhr_anonymous_token');
 

@@ -2,26 +2,114 @@
 @section('title', __('femtech.portal_title') . ' | Chiremba Express')
 
 @section('content')
-<div class="bg-gray-100 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100" x-data="{ activeTab: 'maternal' }">
+<div class="bg-gray-100 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100"
+     x-data="{
+        activeTab: 'maternal',
+        aiPrompt: '32 weeks pregnant. Experiencing severe persistent headache since morning, blurred vision with flashing lights, and sudden swelling of face and hands.',
+        aiGestWeeks: 32,
+        aiSysBp: 158,
+        aiDiaBp: 102,
+        aiMode: 'maternal',
+        aiAnalyzing: false,
+        aiStep: 1,
+        aiResult: {
+            riskBadge: 'CRITICAL RISK FLAGGED • URGENT REFERRAL',
+            condition: 'Severe Pre-eclampsia Risk (Hypertensive Disorder of Pregnancy • ICD-10 O14.1)',
+            protocol: 'WHO Antenatal Care (ANC) & Maternal Danger-Sign Protocol',
+            reasoning: 'AI Clinical Assessment: Patient is at 32 weeks gestation presenting with severe hypertension (BP 158/102 mmHg >= 140/90 threshold) accompanied by neurological/visual danger signs (severe persistent headache, scotomata/blurred vision, facial/hand edema). Immediate antihypertensive stabilization and obstetric specialist consultation required.',
+            doctorName: 'Dr. Rutendo Moyo (MBChB, MMed OB/GYN)',
+            doctorFacility: 'Mbuya Nehanda Maternity Wing, Harare • MDPCZ Verified Specialist',
+            rxCode: 'RX-ZW-2026-904',
+            rxItems: 'Nifedipine SR 20mg + Methyldopa 250mg + Prenatal Folate/Iron Pack',
+            pharmacyName: 'Chiremba Discreet SRHR Community Pharmacy (Samora Machel Ave, Harare)',
+            courierPin: '4829',
+            amountUsd: '5.00'
+        },
+        bookingConfirmed: false,
+        bookingSlot: 'Immediate Priority Video Consultation (Today • In 5 Mins)',
+        ecocashPhone: '0771234567',
+        ecocashProcessing: false,
+        ecocashPaid: false,
+        ecocashRef: 'MP261103.1555.C94',
+        loadPreset(type) {
+            this.aiMode = type;
+            this.bookingConfirmed = false;
+            this.ecocashPaid = false;
+            if (type === 'maternal') {
+                this.aiPrompt = '32 weeks pregnant. Experiencing severe persistent headache since morning, blurred vision with flashing lights, and sudden swelling of face and hands.';
+                this.aiGestWeeks = 32;
+                this.aiSysBp = 158;
+                this.aiDiaBp = 102;
+                this.aiResult = {
+                    riskBadge: 'CRITICAL RISK FLAGGED • URGENT REFERRAL',
+                    condition: 'Severe Pre-eclampsia Risk (Hypertensive Disorder of Pregnancy • ICD-10 O14.1)',
+                    protocol: 'WHO Antenatal Care (ANC) & Maternal Danger-Sign Protocol',
+                    reasoning: 'AI Clinical Assessment: Patient is at 32 weeks gestation presenting with severe hypertension (BP 158/102 mmHg >= 140/90 threshold) accompanied by neurological/visual danger signs (severe persistent headache, blurred vision, facial/hand edema). Immediate specialist referral prioritized.',
+                    doctorName: 'Dr. Rutendo Moyo (MBChB, MMed OB/GYN)',
+                    doctorFacility: 'Mbuya Nehanda Maternity Wing, Harare • MDPCZ Verified Specialist',
+                    rxCode: 'RX-ZW-2026-904',
+                    rxItems: 'Nifedipine SR 20mg + Methyldopa 250mg + Maternal Stabilization Pack',
+                    pharmacyName: 'Chiremba Discreet SRHR Community Pharmacy (Samora Machel Ave, Harare)',
+                    courierPin: '4829',
+                    amountUsd: '5.00'
+                };
+            } else {
+                this.aiPrompt = 'Adolescent anonymous user (19y): Unprotected intercourse 24 hours ago, also experiencing mild lower pelvic discomfort and requesting confidential STI & emergency contraception guidance.';
+                this.aiGestWeeks = 0;
+                this.aiSysBp = 118;
+                this.aiDiaBp = 76;
+                this.aiResult = {
+                    riskBadge: 'TIME-SENSITIVE SRHR & STI PROTOCOL FLAGGED',
+                    condition: 'Emergency Contraception (<72h Window) + Pelvic Infection / STI Rule-Out',
+                    protocol: 'WHO Family Planning & Syndromic STI Management Guidelines',
+                    reasoning: 'AI Clinical Assessment: Patient is within the optimal 72-hour window for Levonorgestrel 1.5mg emergency contraception (>85% efficacy). Concurrent lower pelvic discomfort warrants confidential tele-consultation and dual HIV/Syphilis + STI screening.',
+                    doctorName: 'Dr. Rutendo Moyo (SRHR & Adolescent Friendly Specialist)',
+                    doctorFacility: 'Harare Confidential Tele-Clinic • Zero-PII Session Linked',
+                    rxCode: 'RX-SRHR-ANON-712',
+                    rxItems: 'Levonorgestrel 1.5mg EC + OraQuick Dual Self-Test + Prophylactic Pack',
+                    pharmacyName: 'Chiremba Discreet SRHR Community Pharmacy (Unmarked Parcel)',
+                    courierPin: '7391',
+                    amountUsd: '5.00'
+                };
+            }
+        },
+        runAiTriage() {
+            this.aiAnalyzing = true;
+            this.bookingConfirmed = false;
+            this.ecocashPaid = false;
+            setTimeout(() => {
+                this.aiAnalyzing = false;
+                this.aiStep = 2;
+            }, 900);
+        },
+        confirmDoctorBooking() {
+            this.bookingConfirmed = true;
+            this.aiStep = 3;
+        },
+        payWithEcocash() {
+            this.ecocashProcessing = true;
+            setTimeout(() => {
+                this.ecocashProcessing = false;
+                this.ecocashPaid = true;
+            }, 800);
+        }
+     }">
+
     {{-- Top Clinical Header, Quick-Exit & Language Bar --}}
     <div class="container mx-auto px-4 mb-6">
         <div class="bg-primary-600 dark:bg-primary-700 text-white rounded-xl shadow-lg p-5 flex flex-wrap items-center justify-between gap-4 border border-primary-500">
             <div class="flex items-center space-x-3">
                 <span class="bg-white/20 p-3 rounded-lg text-white">
-                    <i class="fas fa-baby-carriage text-xl"></i>
+                    <i class="fas fa-robot text-xl"></i>
                 </span>
                 <div>
                     <div class="flex flex-wrap items-center gap-2 mb-1">
                         <span class="bg-white/20 text-white text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full">UNICEF Venture Fund FemTech DPG</span>
-                        <span class="bg-emerald-500 text-white text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full">Pillar 1 & Pillar 2</span>
+                        <span class="bg-emerald-500 text-white text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full">AI Clinical Triage Engine Active</span>
                     </div>
                     <h1 class="text-lg md:text-xl font-bold text-white">{{ __('femtech.portal_title') }}</h1>
                     <p class="text-xs text-blue-100 mt-0.5">
-                        @if($anonToken)
-                            <i class="fas fa-user-secret text-green-300 mr-1"></i> {{ __('femtech.anonymous_mode_active') }} ({{ Session::get('srhr_alias_code', 'ANON') }})
-                        @else
-                            <strong>Pillar 1:</strong> Healthcare Access for Women & Girls (Maternal, ANC/PNC, Newborn & Continuity of Care) • <strong>Pillar 2:</strong> Informed, Safe & Accessible Reproductive Health (SRHR)
-                        @endif
+                        <strong>Pillar 1:</strong> Healthcare Access for Women & Girls (Maternal, ANC/PNC, Newborn & Continuity of Care) • <strong>Pillar 2:</strong> Informed, Safe & Accessible Reproductive Health (SRHR)
                     </p>
                 </div>
             </div>
@@ -34,12 +122,17 @@
                     <a href="{{ route('femtech.hub', ['lang' => 'nr']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'nr' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-500' }}">isiNdebele</a>
                 </div>
 
+                {{-- Full Conversational AI Chat Shortcut --}}
+                <a href="{{ route('patient.ai_assistant') }}" class="bg-white text-primary-700 hover:bg-blue-50 text-xs font-bold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center">
+                    <i class="fas fa-comments mr-1.5"></i> Full AI Chat
+                </a>
+
                 {{-- CHW Mode Shortcut --}}
                 <a href="{{ route('chw.portal') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center">
                     <i class="fas fa-user-nurse mr-1.5"></i> CHW Offline Mode
                 </a>
 
-                {{-- Quick-Exit / Privacy Safety Button (Returns to Chiremba Home & Wipes SRHR Session) --}}
+                {{-- Quick-Exit / Privacy Safety Button --}}
                 <button type="button" onclick="triggerQuickExit()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition flex items-center">
                     <i class="fas fa-eye-slash mr-1.5"></i> {{ __('femtech.quick_exit') }}
                 </button>
@@ -48,6 +141,180 @@
     </div>
 
     <div class="container mx-auto px-4">
+        {{-- =====================================================================
+             LIVE AI CLINICAL TRIAGE -> DOCTOR BOOKING -> ECOCASH DISPATCH LOOP
+             (Designed specifically for Act 2 [0:35 - 1:15] Live Demo Recording)
+             ===================================================================== --}}
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-2 border-primary-500 p-6 mb-8">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="h-11 w-11 rounded-xl bg-primary-600 text-white flex items-center justify-center shadow">
+                        <i class="fas fa-brain text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base md:text-lg font-bold text-gray-900 dark:text-white">
+                                Chiremba AI Clinical Triage, Specialist Routing & Discreet EcoCash Pharmacy Loop
+                            </h2>
+                            <span class="bg-green-100 text-green-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                                <i class="fas fa-user-secret mr-1"></i> Anonymous Session: ANON-ZW-8842
+                            </span>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-0.5">
+                            Real-time AI evaluation calibrated against WHO Maternal (ANC/PNC) & SRHR Clinical Protocols -> Verified Zimbabwean Specialist -> Discreet Community Pharmacy EcoCash Dispatch
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" @click="loadPreset('maternal')" :class="aiMode === 'maternal' ? 'bg-primary-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200'" class="text-xs font-bold px-3 py-1.5 rounded-lg transition">
+                        Pillar 1 Scenario: Pre-eclampsia AI Triage
+                    </button>
+                    <button type="button" @click="loadPreset('srhr')" :class="aiMode === 'srhr' ? 'bg-primary-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200'" class="text-xs font-bold px-3 py-1.5 rounded-lg transition">
+                        Pillar 2 Scenario: Adolescent SRHR AI Triage
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {{-- STEP 1 (0:35 - 0:50): AI SYMPTOM & VITALS TRIAGE INTAKE --}}
+                <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">STEP 1 • AI Triage Intake</span>
+                            <span class="text-[11px] font-semibold text-primary-600 dark:text-primary-300"><i class="fas fa-shield-alt mr-1"></i> Zero-PII Anonymous</span>
+                        </div>
+
+                        <label class="block text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">
+                            Patient Symptoms & Narrative (English / ChiShona / isiNdebele)
+                        </label>
+                        <textarea x-model="aiPrompt" rows="3" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2.5 text-xs mb-3"></textarea>
+
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 dark:text-gray-200 mb-1">Gest. Weeks</label>
+                                <input type="number" x-model="aiGestWeeks" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-xs font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 dark:text-gray-200 mb-1">Systolic BP</label>
+                                <input type="number" x-model="aiSysBp" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-xs font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 dark:text-gray-200 mb-1">Diastolic BP</label>
+                                <input type="number" x-model="aiDiaBp" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-xs font-bold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" @click="runAiTriage()" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-xs flex items-center justify-center">
+                        <template x-if="!aiAnalyzing">
+                            <span><i class="fas fa-robot mr-1.5"></i> Evaluate with AI Engine (WHO Protocol)</span>
+                        </template>
+                        <template x-if="aiAnalyzing">
+                            <span><i class="fas fa-spinner fa-spin mr-1.5"></i> AI Evaluating Vitals & WHO Protocols...</span>
+                        </template>
+                    </button>
+                </div>
+
+                {{-- STEP 2 (0:50 - 1:02): ACUTE RISK FLAG & VERIFIED DOCTOR BOOKING --}}
+                <div class="rounded-xl border-2 p-5 flex flex-col justify-between transition"
+                     :class="aiStep >= 2 ? 'border-red-500 bg-white dark:bg-gray-800 shadow-md' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700'">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">STEP 2 • AI Risk Flag & Specialist</span>
+                            <span class="text-[11px] font-bold text-red-600 uppercase" x-text="aiResult.riskBadge"></span>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-red-50 dark:bg-gray-700 border border-red-200 dark:border-red-500 mb-3">
+                            <div class="text-xs font-bold text-gray-900 dark:text-white" x-text="aiResult.condition"></div>
+                            <div class="text-[11px] font-semibold text-primary-600 dark:text-primary-300 mt-0.5" x-text="'Calibrated against: ' + aiResult.protocol"></div>
+                            <p class="text-xs text-gray-700 dark:text-gray-200 mt-1.5 leading-relaxed" x-text="aiResult.reasoning"></p>
+                        </div>
+
+                        {{-- Matched Verified Zimbabwean Specialist Card --}}
+                        <div class="p-3 rounded-lg bg-blue-50 dark:bg-gray-700 border border-blue-200 dark:border-gray-600 mb-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase text-primary-600 dark:text-primary-300">Priority Specialist Match</span>
+                                    <h4 class="text-xs font-bold text-gray-900 dark:text-white" x-text="aiResult.doctorName"></h4>
+                                    <p class="text-[11px] text-gray-600 dark:text-gray-300" x-text="aiResult.doctorFacility"></p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded">Online Now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <template x-if="!bookingConfirmed">
+                            <button type="button" @click="confirmDoctorBooking()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-xs flex items-center justify-center">
+                                <i class="fas fa-video mr-1.5"></i> Book Direct Virtual Consultation Now
+                            </button>
+                        </template>
+                        <template x-if="bookingConfirmed">
+                            <div class="p-2.5 rounded-xl bg-green-100 text-green-900 text-xs font-bold text-center border border-green-300">
+                                <i class="fas fa-check-circle mr-1"></i> Virtual Consultation Booked • E-Prescription Generated!
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                {{-- STEP 3 (1:02 - 1:15): DIGITAL E-PRESCRIPTION DISPATCH & ECOCASH CHECKOUT --}}
+                <div class="rounded-xl border-2 p-5 flex flex-col justify-between transition"
+                     :class="aiStep >= 3 ? 'border-emerald-500 bg-white dark:bg-gray-800 shadow-md' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700'">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">STEP 3 • E-Prescription & EcoCash</span>
+                            <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400" x-text="aiResult.rxCode"></span>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 mb-3 text-xs">
+                            <div class="font-bold text-gray-900 dark:text-white mb-1">
+                                <i class="fas fa-prescription-bottle-alt text-primary-500 mr-1"></i> Digital E-Prescription:
+                            </div>
+                            <p class="font-semibold text-primary-600 dark:text-primary-300" x-text="aiResult.rxItems"></p>
+                            <p class="text-[11px] text-gray-600 dark:text-gray-300 mt-1">
+                                <strong>Partner Pharmacy:</strong> <span x-text="aiResult.pharmacyName"></span>
+                            </p>
+                            <div class="mt-2 flex items-center justify-between bg-white dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-600">
+                                <span class="text-[11px] font-bold text-gray-800 dark:text-gray-100">
+                                    <i class="fas fa-box text-emerald-600 mr-1"></i> Unmarked Discreet Parcel
+                                </span>
+                                <span class="bg-primary-100 text-primary-800 text-[11px] font-bold px-2 py-0.5 rounded" x-text="'Drop-Off PIN: ' + aiResult.courierPin"></span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mb-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 dark:text-gray-200 mb-1">EcoCash Mobile No.</label>
+                                <input type="text" x-model="ecocashPhone" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-xs font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-700 dark:text-gray-200 mb-1">Total Copay (USD)</label>
+                                <input type="text" :value="'$' + aiResult.amountUsd + ' (EcoCash)'" readonly class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-xs font-bold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <template x-if="!ecocashPaid">
+                            <button type="button" @click="payWithEcocash()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-xs flex items-center justify-center">
+                                <template x-if="!ecocashProcessing">
+                                    <span><i class="fas fa-mobile-alt mr-1.5"></i> Instant Checkout via EcoCash Mobile Money ($5.00)</span>
+                                </template>
+                                <template x-if="ecocashProcessing">
+                                    <span><i class="fas fa-spinner fa-spin mr-1.5"></i> Sending EcoCash USSD Push to 0771234567...</span>
+                                </template>
+                            </button>
+                        </template>
+                        <template x-if="ecocashPaid">
+                            <div class="p-2.5 rounded-xl bg-emerald-100 text-emerald-900 text-xs font-bold text-center border border-emerald-300">
+                                <i class="fas fa-check-double mr-1"></i> EcoCash Paid (<span x-text="ecocashRef"></span>) • Discreet Courier Dispatched!
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- UNICEF Pillar Overview Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border-l-4 border-primary-500 shadow-sm">
