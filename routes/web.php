@@ -566,9 +566,10 @@ Route::get('/developer', [\App\Http\Controllers\DeveloperPortalController::class
 Route::get('/developers/api', [\App\Http\Controllers\DeveloperPortalController::class, 'docs'])->name('developers.docs');
 Route::post('/developers/register', [\App\Http\Controllers\DeveloperPortalController::class, 'register'])->name('developers.register');
 
-// UNICEF Venture Fund Femtech & Maternal/Child Health Platform Routes (Pillars 1 - 5)
+// UNICEF Venture Fund Femtech & Maternal/Child Health Platform Routes (Pillar 1 & Pillar 2)
 Route::group(['middleware' => ['Localization']], function () {
     Route::get('/femtech-hub', [\App\Http\Controllers\Patient\FemtechController::class, 'index'])->name('femtech.hub');
+    Route::get('/femtech/quick-exit', [\App\Http\Controllers\Patient\FemtechController::class, 'quickExit'])->name('femtech.quick_exit');
     Route::post('/femtech/maternal/triage', [\App\Http\Controllers\Patient\FemtechController::class, 'submitMaternalTriage'])->name('femtech.maternal.triage');
     Route::post('/femtech/maternal/vitals', [\App\Http\Controllers\Patient\FemtechController::class, 'logMaternalVitals'])->name('femtech.maternal.vitals');
     Route::post('/femtech/child/register', [\App\Http\Controllers\Patient\FemtechController::class, 'registerChildSchedule'])->name('femtech.child.register');

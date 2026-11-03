@@ -692,5 +692,19 @@ class FemtechController extends Controller
             'reply_text' => "Chiremba Express Low-Bandwidth Health:\n1. Reply 'TRIAGE <weeks> <symptoms>' (e.g. TRIAGE 30 HEADACHE BP 150/95)\n2. Reply 'SRHR <question>' for confidential reproductive health advice.",
         ]);
     }
+
+    /**
+     * Quick-Exit Privacy Handler: Clears sensitive SRHR/anonymous session state and returns
+     * to the neutral Chiremba Express main directory.
+     */
+    public function quickExit()
+    {
+        Session::forget(['srhr_anonymous_token', 'srhr_alias_code']);
+
+        return redirect('/')->with([
+            'message' => 'Privacy Quick-Exit activated: Sensitive SRHR session cleared.',
+            'alert-class' => 'alert-success',
+        ]);
+    }
 }
 

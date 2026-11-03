@@ -2,12 +2,12 @@
 @section('title', __('femtech.chw_title') . ' | Chiremba Express')
 
 @section('content')
-<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100">
+<div class="bg-gray-100 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-4">
         {{-- Top Banner --}}
         <div class="bg-primary-600 dark:bg-primary-700 text-white rounded-xl shadow-lg p-5 mb-6 flex flex-wrap items-center justify-between gap-4 border border-primary-500">
             <div>
-                <span class="bg-white/20 text-white text-xs uppercase font-bold px-2.5 py-1 rounded-full">Pillar 3 • Rural & Low-Resource Edge Module</span>
+                <span class="bg-white/20 text-white text-xs uppercase font-bold px-2.5 py-1 rounded-full">Pillar 1: Healthcare Access for Women & Girls • Continuity of Care</span>
                 <h1 class="text-xl md:text-2xl font-bold mt-2 text-white">{{ __('femtech.chw_title') }}</h1>
                 <p class="text-xs text-blue-100 mt-1">{{ __('femtech.offline_ready_badge') }}</p>
             </div>
@@ -33,49 +33,49 @@
                     @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">CHW / Nurse Name *</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">CHW / Nurse Name *</label>
                             <input type="text" id="chw_name" name="chw_name" value="VHW Chipo Ndlovu" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Clinic / Rural Ward *</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Clinic / Rural Ward *</label>
                             <input type="text" id="chw_location_ward" name="chw_location_ward" value="Murehwa Ward 4 Rural Health Centre" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-gray-200 dark:border-gray-700 pt-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Patient Full Name *</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Patient Full Name *</label>
                             <input type="text" id="patient_full_name" name="patient_full_name" placeholder="e.g. Rudo Mutasa" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Patient / Next-of-Kin Phone</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Patient / Next-of-Kin Phone</label>
                             <input type="text" id="patient_phone" name="patient_phone" placeholder="077..." class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Age (Years)</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Age (Years)</label>
                             <input type="number" id="patient_age" name="patient_age" placeholder="24" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-gray-50 dark:bg-gray-700/60 p-3.5 rounded-lg border border-gray-200 dark:border-gray-600">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-gray-50 dark:bg-gray-700 p-3.5 rounded-lg border border-gray-200 dark:border-gray-600">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Pregnant?</label>
-                            <select id="is_pregnant" name="is_pregnant" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Pregnant?</label>
+                            <select id="is_pregnant" name="is_pregnant" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                                 <option value="1">Yes (Antenatal)</option>
                                 <option value="0">No / Postnatal</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gestational Wks</label>
-                            <input type="number" id="gestational_weeks" name="gestational_weeks" value="28" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Gestational Wks</label>
+                            <input type="number" id="gestational_weeks" name="gestational_weeks" value="28" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Systolic BP</label>
-                            <input type="number" id="systolic_bp" name="systolic_bp" placeholder="120" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Systolic BP</label>
+                            <input type="number" id="systolic_bp" name="systolic_bp" placeholder="120" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Diastolic BP</label>
-                            <input type="number" id="diastolic_bp" name="diastolic_bp" placeholder="80" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Diastolic BP</label>
+                            <input type="number" id="diastolic_bp" name="diastolic_bp" placeholder="80" class="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                     </div>
 
@@ -83,9 +83,9 @@
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Observed Danger Signs / Symptoms</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             @foreach(__('femtech.symptoms') as $code => $label)
-                                <label class="flex items-center space-x-2 p-2.5 rounded border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/60 text-xs cursor-pointer">
+                                <label class="flex items-center space-x-2 p-2.5 rounded border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-xs cursor-pointer">
                                     <input type="checkbox" name="symptoms[]" value="{{ $code }}" class="chw-symptom-checkbox text-primary-600">
-                                    <span class="text-gray-800 dark:text-gray-200 font-medium">{{ $label }}</span>
+                                    <span class="text-gray-800 dark:text-gray-100 font-medium">{{ $label }}</span>
                                 </label>
                             @endforeach
                         </div>
@@ -103,7 +103,7 @@
                     <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2">
                         <i class="fas fa-hdd text-primary-500 mr-1.5"></i> Edge Offline Storage Queue
                     </h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-3">
                         Intakes recorded without cellular data are stored in IndexedDB/localStorage and evaluated by the embedded WHO rule engine.
                     </p>
                     <div id="offline-queue-list" class="space-y-2 text-xs text-gray-700 dark:text-gray-200"></div>
@@ -115,7 +115,7 @@
                     </h3>
                     <div class="space-y-2.5">
                         @forelse($recentIntakes as $intake)
-                            <div class="p-3.5 rounded-lg border text-xs {{ in_array($intake->triage_risk_level, ['high', 'critical']) ? 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800/50 text-gray-900 dark:text-red-100' : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-100' }}">
+                            <div class="p-3.5 rounded-lg border text-xs {{ in_array($intake->triage_risk_level, ['high', 'critical']) ? 'bg-red-50 dark:bg-gray-700 border-red-200 dark:border-red-500 text-gray-900 dark:text-gray-100' : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-100' }}">
                                 <div class="flex justify-between items-center font-bold">
                                     <span>{{ $intake->patient_full_name }}</span>
                                     <span class="uppercase px-2 py-0.5 rounded text-[10px] {{ in_array($intake->triage_risk_level, ['high', 'critical']) ? 'bg-red-600 text-white' : 'bg-green-100 text-green-800' }}">{{ $intake->triage_risk_level }}</span>
@@ -158,7 +158,7 @@
         document.getElementById('offline-queue-count').innerText = queue.length;
         const container = document.getElementById('offline-queue-list');
         if (queue.length === 0) {
-            container.innerHTML = '<div class="p-2.5 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200 rounded-lg font-medium">All field intakes synchronized with cloud.</div>';
+            container.innerHTML = '<div class="p-2.5 bg-green-50 dark:bg-gray-700 border border-green-200 dark:border-green-600 text-gray-900 dark:text-gray-100 rounded-lg font-medium">All field intakes synchronized with cloud.</div>';
             return;
         }
         container.innerHTML = queue.map(item =>

@@ -31,6 +31,7 @@
 
       <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (!localStorage.getItem('chiremba_theme_v3')) { localStorage.setItem('darkMode', 'false'); localStorage.setItem('chiremba_theme_v3', '1'); }
         if (localStorage.getItem('darkMode') === 'true') {
             document.documentElement.classList.add('dark')
         } else {

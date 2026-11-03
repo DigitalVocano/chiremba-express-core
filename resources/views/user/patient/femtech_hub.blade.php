@@ -2,7 +2,7 @@
 @section('title', __('femtech.portal_title') . ' | Chiremba Express')
 
 @section('content')
-<div class="bg-gray-50 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100" x-data="{ activeTab: 'maternal' }">
+<div class="bg-gray-100 dark:bg-gray-900 min-h-screen py-8 text-gray-800 dark:text-gray-100" x-data="{ activeTab: 'maternal' }">
     {{-- Top Clinical Header, Quick-Exit & Language Bar --}}
     <div class="container mx-auto px-4 mb-6">
         <div class="bg-primary-600 dark:bg-primary-700 text-white rounded-xl shadow-lg p-5 flex flex-wrap items-center justify-between gap-4 border border-primary-500">
@@ -11,12 +11,16 @@
                     <i class="fas fa-baby-carriage text-xl"></i>
                 </span>
                 <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                        <span class="bg-white/20 text-white text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full">UNICEF Venture Fund FemTech DPG</span>
+                        <span class="bg-emerald-500 text-white text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full">Pillar 1 & Pillar 2</span>
+                    </div>
                     <h1 class="text-lg md:text-xl font-bold text-white">{{ __('femtech.portal_title') }}</h1>
                     <p class="text-xs text-blue-100 mt-0.5">
                         @if($anonToken)
                             <i class="fas fa-user-secret text-green-300 mr-1"></i> {{ __('femtech.anonymous_mode_active') }} ({{ Session::get('srhr_alias_code', 'ANON') }})
                         @else
-                            WHO-Calibrated Maternal Triage • First 1,000 Days • Confidential SRHR • EPDS Mental Health • HL7/FHIR R4
+                            <strong>Pillar 1:</strong> Healthcare Access for Women & Girls (Maternal, ANC/PNC, Newborn & Continuity of Care) • <strong>Pillar 2:</strong> Informed, Safe & Accessible Reproductive Health (SRHR)
                         @endif
                     </p>
                 </div>
@@ -25,9 +29,9 @@
             <div class="flex flex-wrap items-center gap-2">
                 {{-- Multilingual Switcher: English, ChiShona, isiNdebele --}}
                 <div class="bg-primary-700 dark:bg-gray-800 rounded-lg p-1 flex items-center space-x-1 text-xs border border-white/20">
-                    <a href="{{ route('femtech.hub', ['lang' => 'en']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'en' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-600' }}">English</a>
-                    <a href="{{ route('femtech.hub', ['lang' => 'sn']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'sn' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-600' }}">ChiShona</a>
-                    <a href="{{ route('femtech.hub', ['lang' => 'nr']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'nr' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-600' }}">isiNdebele</a>
+                    <a href="{{ route('femtech.hub', ['lang' => 'en']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'en' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-500' }}">English</a>
+                    <a href="{{ route('femtech.hub', ['lang' => 'sn']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'sn' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-500' }}">ChiShona</a>
+                    <a href="{{ route('femtech.hub', ['lang' => 'nr']) }}" class="px-3 py-1.5 rounded font-semibold transition {{ $locale === 'nr' ? 'bg-white text-primary-700 shadow-sm' : 'text-white hover:bg-primary-500' }}">isiNdebele</a>
                 </div>
 
                 {{-- CHW Mode Shortcut --}}
@@ -35,7 +39,7 @@
                     <i class="fas fa-user-nurse mr-1.5"></i> CHW Offline Mode
                 </a>
 
-                {{-- Quick-Exit / Privacy Safety Button --}}
+                {{-- Quick-Exit / Privacy Safety Button (Returns to Chiremba Home & Wipes SRHR Session) --}}
                 <button type="button" onclick="triggerQuickExit()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition flex items-center">
                     <i class="fas fa-eye-slash mr-1.5"></i> {{ __('femtech.quick_exit') }}
                 </button>
@@ -44,27 +48,43 @@
     </div>
 
     <div class="container mx-auto px-4">
-        {{-- Pillar Navigation Tabs --}}
+        {{-- UNICEF Pillar Overview Cards --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border-l-4 border-primary-500 shadow-sm">
+                <div class="text-xs font-bold uppercase text-primary-600 dark:text-primary-400">Pillar 1 • Healthcare Access for Women & Girls</div>
+                <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                    Maternal, antenatal/postnatal care, newborn health (First 1,000 Days EPI immunization & growth), maternal mental health (EPDS), CHW offline continuity of care, and HL7/FHIR R4 hospital interoperability.
+                </p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border-l-4 border-emerald-500 shadow-sm">
+                <div class="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400">Pillar 2 • Informed, Safe & Accessible Reproductive Health</div>
+                <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                    Confidential SRHR consultations, overcoming stigma via zero-PII anonymous sessions, WHO-calibrated contraception & STI guidance, and unmarked PIN-verified e-pharmacy courier dispatch.
+                </p>
+            </div>
+        </div>
+
+        {{-- Module Navigation Tabs --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            <button @click="activeTab = 'maternal'" :class="activeTab === 'maternal' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
+            <button @click="activeTab = 'maternal'" :class="activeTab === 'maternal' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
                 <i class="fas fa-baby-carriage"></i>
-                <span>1. Maternal & First 1,000 Days</span>
+                <span>Pillar 1A: Maternal & Newborn</span>
             </button>
-            <button @click="activeTab = 'srhr'" :class="activeTab === 'srhr' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
+            <button @click="activeTab = 'srhr'" :class="activeTab === 'srhr' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
                 <i class="fas fa-user-secret"></i>
-                <span>2. Confidential SRHR Portal</span>
+                <span>Pillar 2: Confidential SRHR</span>
             </button>
-            <button @click="activeTab = 'epds'" :class="activeTab === 'epds' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
+            <button @click="activeTab = 'epds'" :class="activeTab === 'epds' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
                 <i class="fas fa-heart"></i>
-                <span>3. Maternal Mental Health (EPDS)</span>
+                <span>Pillar 1B: Postnatal Mental Health</span>
             </button>
-            <button @click="activeTab = 'fhir'" :class="activeTab === 'fhir' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
+            <button @click="activeTab = 'fhir'" :class="activeTab === 'fhir' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'" class="p-3.5 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 border transition">
                 <i class="fas fa-network-wired"></i>
-                <span>4. HL7/FHIR & Low-Bandwidth</span>
+                <span>Pillar 1C: Continuity & FHIR R4</span>
             </button>
         </div>
 
-        {{-- TAB 1: MATERNAL TRIAGE, VITALS & FIRST 1,000 DAYS --}}
+        {{-- TAB 1: PILLAR 1A - MATERNAL TRIAGE, VITALS & FIRST 1,000 DAYS NEWBORN HEALTH --}}
         <div x-show="activeTab === 'maternal'" class="space-y-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {{-- Gestational Milestone & Danger-Sign Triage Card --}}
@@ -74,7 +94,7 @@
                             <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
                             {{ __('femtech.maternal_triage_title') }}
                         </h2>
-                        <span class="text-xs bg-red-100 text-red-800 px-2.5 py-1 rounded-full font-semibold">WHO ANC Protocol</span>
+                        <span class="text-xs bg-red-100 text-red-800 px-2.5 py-1 rounded-full font-semibold">Pillar 1 • WHO ANC</span>
                     </div>
 
                     <form action="{{ route('femtech.maternal.triage') }}" method="POST" class="space-y-4">
@@ -82,15 +102,15 @@
                         <input type="hidden" name="locale" value="{{ $locale }}">
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">{{ __('femtech.gestational_weeks_label') }} *</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">{{ __('femtech.gestational_weeks_label') }} *</label>
                                 <input type="number" name="gestational_weeks" min="1" max="45" value="{{ optional($maternalProfile)->gestational_weeks ?? 28 }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Systolic BP (mmHg)</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Systolic BP (mmHg)</label>
                                 <input type="number" name="systolic_bp" placeholder="e.g. 120" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Diastolic BP (mmHg)</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Diastolic BP (mmHg)</label>
                                 <input type="number" name="diastolic_bp" placeholder="e.g. 80" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                         </div>
@@ -99,9 +119,9 @@
                             <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ __('femtech.select_symptoms_prompt') }}</label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 @foreach(__('femtech.symptoms') as $code => $label)
-                                    <label class="flex items-start space-x-2 p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/60 hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer text-xs">
+                                    <label class="flex items-start space-x-2 p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600 cursor-pointer text-xs">
                                         <input type="checkbox" name="symptoms[]" value="{{ $code }}" class="mt-0.5 text-primary-600 rounded">
-                                        <span class="text-gray-800 dark:text-gray-200 font-medium">{{ $label }}</span>
+                                        <span class="text-gray-800 dark:text-gray-100 font-medium">{{ $label }}</span>
                                     </label>
                                 @endforeach
                             </div>
@@ -117,14 +137,14 @@
                             <h3 class="text-xs font-bold uppercase text-gray-500 dark:text-gray-400 mb-2">Recent Triage Assessments</h3>
                             <div class="space-y-2">
                                 @foreach($triageLogs as $log)
-                                    <div class="p-3 rounded-lg text-xs {{ $log->urgent_referral_triggered ? 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800/50 text-red-900 dark:text-red-200' : 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-900 dark:text-green-200' }}">
+                                    <div class="p-3.5 rounded-lg text-xs border {{ $log->urgent_referral_triggered ? 'bg-red-50 dark:bg-gray-700 border-red-200 dark:border-red-500 text-gray-900 dark:text-gray-100' : 'bg-green-50 dark:bg-gray-700 border-green-200 dark:border-green-500 text-gray-900 dark:text-gray-100' }}">
                                         <div class="flex justify-between items-center font-bold mb-1">
                                             <span>Week {{ $log->gestational_weeks }} • Risk: {{ strtoupper($log->risk_level) }}</span>
                                             @if($log->urgent_referral_triggered)
                                                 <span class="bg-red-600 text-white px-2 py-0.5 rounded text-[11px]">URGENT REFERRAL</span>
                                             @endif
                                         </div>
-                                        <p class="leading-relaxed">{{ $log->clinical_guidance }}</p>
+                                        <p class="leading-relaxed text-gray-700 dark:text-gray-200">{{ $log->clinical_guidance }}</p>
                                     </div>
                                 @endforeach
                             </div>
@@ -137,7 +157,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-lg font-bold text-gray-900 dark:text-white flex items-center">
                             <i class="fas fa-heartbeat text-primary-500 mr-2"></i>
-                            Maternal Vitals Log (HL7/FHIR Ready)
+                            Maternal Vitals & Continuity of Care Log
                         </h2>
                         <a href="{{ route('femtech.fhir.export') }}" target="_blank" class="text-xs bg-primary-600 hover:bg-primary-700 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center shadow-sm">
                             <i class="fas fa-file-code mr-1.5"></i> Export FHIR R4 JSON
@@ -148,27 +168,27 @@
                         @csrf
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Date *</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Date *</label>
                                 <input type="date" name="date" value="{{ date('Y-m-d') }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Systolic BP *</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Systolic BP *</label>
                                 <input type="number" name="blood_pressure_systolic" placeholder="120" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Diastolic BP *</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Diastolic BP *</label>
                                 <input type="number" name="blood_pressure_diastolic" placeholder="80" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Weight (kg)</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Weight (kg)</label>
                                 <input type="number" step="0.1" name="weight" placeholder="68.5" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Glucose (mmol/L)</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Glucose (mmol/L)</label>
                                 <input type="number" step="0.1" name="glucose_level" placeholder="5.2" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Fetal HR (bpm)</label>
+                                <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Fetal HR (bpm)</label>
                                 <input type="number" name="fetal_heart_rate" placeholder="145" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             </div>
                         </div>
@@ -214,27 +234,27 @@
                             <i class="fas fa-syringe text-primary-500 mr-2"></i>
                             {{ __('femtech.immunization_title') }}
                         </h2>
-                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Automated EPI Vaccination Milestones (BCG, Polio, Pentavalent, Measles-Rubella, Vitamin A) & WHO MUAC Nutrition Check-ins</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-0.5">Pillar 1 Newborn Continuity of Care: Automated EPI Vaccination Milestones (BCG, Polio, Pentavalent, Measles-Rubella, Vitamin A) & WHO MUAC Nutrition Check-ins</p>
                     </div>
                 </div>
 
-                <form action="{{ route('femtech.child.register') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-6 bg-blue-50 dark:bg-gray-700/60 p-4 rounded-xl border border-blue-100 dark:border-gray-600">
+                <form action="{{ route('femtech.child.register') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-xl border border-gray-200 dark:border-gray-600">
                     @csrf
                     <div>
-                        <label class="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">Infant Name *</label>
-                        <input type="text" name="child_name" placeholder="e.g. Tariro Moyo" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                        <label class="block text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Infant Name *</label>
+                        <input type="text" name="child_name" placeholder="e.g. Tariro Moyo" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">Date of Birth *</label>
-                        <input type="date" name="date_of_birth" value="{{ date('Y-m-d', strtotime('-6 weeks')) }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                        <label class="block text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Date of Birth *</label>
+                        <input type="date" name="date_of_birth" value="{{ date('Y-m-d', strtotime('-6 weeks')) }}" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">Birth Weight (kg)</label>
-                        <input type="number" step="0.1" name="birth_weight_kg" placeholder="3.2" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                        <label class="block text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Birth Weight (kg)</label>
+                        <input type="number" step="0.1" name="birth_weight_kg" placeholder="3.2" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">MUAC (cm) Check</label>
-                        <input type="number" step="0.1" name="muac_cm" placeholder="13.0" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
+                        <label class="block text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">MUAC (cm) Check</label>
+                        <input type="number" step="0.1" name="muac_cm" placeholder="13.0" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 text-sm">
                     </div>
                     <div class="flex items-end">
                         <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg text-sm shadow-sm">
@@ -247,12 +267,12 @@
                     <div class="space-y-6">
                         @foreach($children as $child)
                             <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-4 bg-white dark:bg-gray-800">
-                                <h3 class="font-bold text-sm text-primary-700 dark:text-primary-300 mb-3 flex items-center">
+                                <h3 class="font-bold text-sm text-primary-600 dark:text-primary-400 mb-3 flex items-center">
                                     <i class="fas fa-baby mr-2"></i> {{ $child->child_name }} (DOB: {{ optional($child->date_of_birth)->format('d M Y') }})
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                     @foreach($child->vaccineMilestones as $m)
-                                        <div class="p-3.5 rounded-lg border {{ $m->status === 'due' ? 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-gray-700' : 'border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/60' }} text-xs flex flex-col justify-between">
+                                        <div class="p-3.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-xs flex flex-col justify-between">
                                             <div>
                                                 <div class="flex justify-between items-center font-bold text-gray-900 dark:text-white">
                                                     <span>{{ $m->vaccine_code }} (Wk {{ $m->target_age_weeks }})</span>
@@ -260,11 +280,11 @@
                                                 </div>
                                                 <p class="font-semibold text-gray-800 dark:text-gray-100 mt-1.5">{{ $m->vaccine_name }}</p>
                                                 <p class="text-gray-600 dark:text-gray-300 mt-1">Due: {{ optional($m->due_date)->format('d M Y') }}</p>
-                                                <p class="text-primary-700 dark:text-primary-300 mt-1.5 italic">{{ $m->nutrition_checkin_notes }}</p>
+                                                <p class="text-primary-600 dark:text-primary-300 mt-1.5 italic">{{ $m->nutrition_checkin_notes }}</p>
                                             </div>
                                             <form action="{{ route('femtech.child.reminder', $m->id) }}" method="POST" class="mt-3 pt-2 border-t border-gray-200 dark:border-gray-600">
                                                 @csrf
-                                                <button type="submit" class="text-xs text-primary-600 dark:text-primary-400 hover:underline font-bold flex items-center">
+                                                <button type="submit" class="text-xs text-primary-600 dark:text-primary-300 hover:underline font-bold flex items-center">
                                                     <i class="fas fa-sms mr-1.5"></i> Send SMS/WhatsApp Reminder
                                                 </button>
                                             </form>
@@ -278,7 +298,7 @@
             </div>
         </div>
 
-        {{-- TAB 2: CONFIDENTIAL SRHR PORTAL & DISCREET COURIER PACKAGING --}}
+        {{-- TAB 2: PILLAR 2 - INFORMED, SAFE & ACCESSIBLE REPRODUCTIVE HEALTH (SRHR) --}}
         <div x-show="activeTab === 'srhr'" class="grid grid-cols-1 lg:grid-cols-2 gap-8" style="display: none;">
             {{-- Plain-Language Reproductive Health Assistant --}}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700">
@@ -294,14 +314,14 @@
                     </form>
                 </div>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
-                    Ask sensitive questions regarding contraception, emergency contraception, menstrual health, fertility, or STI symptoms. Calibrated against WHO Family Planning Guidelines with zero real-world profile linking.
+                    <strong>Pillar 2 (Overcoming Stigma & Confidential Consultations):</strong> Ask sensitive questions regarding contraception, emergency contraception, menstrual health, fertility, or STI symptoms. Calibrated against WHO Family Planning Guidelines with zero real-world profile linking.
                 </p>
 
                 <form action="{{ route('femtech.srhr.ask') }}" method="POST" class="space-y-4">
                     @csrf
                     <input type="hidden" name="locale" value="{{ $locale }}">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Topic Category</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Topic Category</label>
                         <select name="topic_category" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             <option value="emergency_contraception">Emergency Contraception (Morning-After Pill)</option>
                             <option value="contraception">Daily & Long-Acting Contraceptive Options / Side Effects</option>
@@ -311,7 +331,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Your Question (Anonymous)</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Your Question (Anonymous)</label>
                         <textarea name="question" rows="3" required placeholder="e.g. How soon should I take emergency contraception and what side effects are normal?" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2.5 text-sm"></textarea>
                     </div>
                     <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2.5 px-4 rounded-lg shadow text-sm">
@@ -323,7 +343,7 @@
                     <div class="mt-6 space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">
                         <h3 class="text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Recent Confidential Guidance</h3>
                         @foreach($srhrHistory as $item)
-                            <div class="p-3.5 bg-blue-50 dark:bg-gray-700 rounded-lg text-xs border border-blue-100 dark:border-gray-600">
+                            <div class="p-3.5 bg-gray-50 dark:bg-gray-700 rounded-lg text-xs border border-gray-200 dark:border-gray-600">
                                 <p class="font-bold text-gray-900 dark:text-white mb-1">Q: {{ $item->question }}</p>
                                 <p class="text-gray-700 dark:text-gray-200 mb-1.5 leading-relaxed">{{ $item->guidance_response }}</p>
                                 <span class="text-[11px] text-primary-600 dark:text-primary-300 font-semibold">Ref: {{ $item->who_guideline_ref }}</span>
@@ -345,7 +365,7 @@
                 <form action="{{ route('femtech.srhr.order') }}" method="POST" class="space-y-4">
                     @csrf
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select Confidential SRHR Supply *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Select Confidential SRHR Supply *</label>
                         <select name="supply_name" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2.5 text-sm">
                             <option value="Levonorgestrel 1.5mg Emergency Contraceptive">Levonorgestrel 1.5mg Emergency Contraceptive ($5.00)</option>
                             <option value="OraQuick HIV & Syphilis Dual Self-Test Kit">OraQuick HIV & Syphilis Dual Self-Test Kit ($5.00)</option>
@@ -356,21 +376,21 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Quantity</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Quantity</label>
                             <input type="number" name="quantity" value="1" min="1" max="5" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">SMS PIN Contact Number *</label>
+                            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">SMS PIN Contact Number *</label>
                             <input type="text" name="contact_phone" placeholder="0771234567" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Drop-off Landmark / Community Pickup Point *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Drop-off Landmark / Community Pickup Point *</label>
                         <input type="text" name="dropoff_landmark" placeholder="e.g. Chitungwiza Unit L Shopping Centre Gate 2" required class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                     </div>
 
-                    <div class="p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-xs text-green-900 dark:text-green-200">
-                        <i class="fas fa-check-circle mr-1"></i> <strong>Discreet Packaging Flag Locked ON:</strong> Unmarked plain parcel + 4-digit courier PIN verification.
+                    <div class="p-3 bg-green-50 dark:bg-gray-700 border border-green-200 dark:border-green-600 rounded-lg text-xs text-gray-900 dark:text-gray-100">
+                        <i class="fas fa-check-circle text-green-600 mr-1"></i> <strong>Discreet Packaging Flag Locked ON:</strong> Unmarked plain parcel + 4-digit courier PIN verification.
                     </div>
 
                     <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2.5 px-4 rounded-lg shadow text-sm">
@@ -380,7 +400,7 @@
             </div>
         </div>
 
-        {{-- TAB 3: MATERNAL MENTAL HEALTH SCREENING (EPDS) --}}
+        {{-- TAB 3: PILLAR 1B - MATERNAL & POSTNATAL MENTAL HEALTH SCREENING (EPDS) --}}
         <div x-show="activeTab === 'epds'" class="grid grid-cols-1 lg:grid-cols-3 gap-8" style="display: none;">
             <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700">
                 <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
@@ -392,7 +412,7 @@
                     @csrf
                     <input type="hidden" name="locale" value="{{ $locale }}">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Perinatal Stage</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Perinatal Stage</label>
                         <select name="perinatal_stage" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white p-2 text-sm">
                             <option value="antenatal">Antenatal (Currently Pregnant)</option>
                             <option value="postpartum_0_6w">Early Postpartum (0 - 6 Weeks After Birth)</option>
@@ -402,7 +422,7 @@
 
                     <div class="space-y-3">
                         @foreach($epdsQuestions as $qNum => $qData)
-                            <div class="p-3.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/60">
+                            <div class="p-3.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700">
                                 <label class="block text-xs font-bold text-gray-900 dark:text-white mb-2">
                                     {{ $qNum }}. {{ $qData['question'] }}
                                 </label>
@@ -410,7 +430,7 @@
                                     @foreach($qData['options'] as $opt)
                                         <label class="flex items-center space-x-2 text-xs cursor-pointer">
                                             <input type="radio" name="responses[{{ $qNum }}]" value="{{ $opt['score'] }}" {{ $opt['score'] === 0 ? 'checked' : '' }} class="text-primary-600">
-                                            <span class="text-gray-800 dark:text-gray-200">{{ $opt['label'] }}</span>
+                                            <span class="text-gray-800 dark:text-gray-100">{{ $opt['label'] }}</span>
                                         </label>
                                     @endforeach
                                 </div>
@@ -452,14 +472,14 @@
             </div>
         </div>
 
-        {{-- TAB 4: HL7/FHIR R4 INTEROPERABILITY & OMNICHANNEL LOW-BANDWIDTH GATEWAY --}}
+        {{-- TAB 4: PILLAR 1C - CONTINUITY OF CARE, HL7/FHIR R4 & LOW-BANDWIDTH GATEWAY --}}
         <div x-show="activeTab === 'fhir'" class="grid grid-cols-1 lg:grid-cols-2 gap-8" style="display: none;">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700">
                 <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                    <i class="fas fa-file-medical-alt text-primary-500 mr-2"></i> HL7 / FHIR R4 Diagnostic & Maternal Export
+                    <i class="fas fa-file-medical-alt text-primary-500 mr-2"></i> HL7 / FHIR R4 Continuity of Care Export
                 </h2>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    Standardizes maternal vitals, danger-sign triage conditions, infant EPI immunizations, EPDS mental health scores, and e-prescriptions into HL7 FHIR R4 JSON Bundles (`Patient`, `Observation`, `Condition`, `Immunization`, `MedicationRequest`) for seamless integration with hospital EHRs and DHIS2.
+                    Standardizes maternal vitals, danger-sign triage conditions, infant EPI immunizations, EPDS mental health scores, and e-prescriptions into HL7 FHIR R4 JSON Bundles (`Patient`, `Observation`, `Condition`, `Immunization`, `MedicationRequest`) for seamless continuity of care across hospital EHRs and DHIS2.
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="{{ route('femtech.fhir.export') }}" target="_blank" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm">
@@ -496,7 +516,7 @@
             sessionStorage.clear();
             localStorage.removeItem('srhr_anonymous_draft');
         } catch (e) {}
-        window.location.replace('https://www.weather.com');
+        window.location.replace("{{ route('femtech.quick_exit') }}");
     }
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
