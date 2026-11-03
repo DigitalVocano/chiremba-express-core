@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true', mobileMenuOpen: false, cartSidebarOpen: false, desktopCartOpen: {{ Session::has('show_cart_dropdown') ? 'true' : 'false' }} }" x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))" :class="{ 'dark': darkMode }">
+<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true', mobileMenuOpen: false, cartSidebarOpen: false, desktopCartOpen: {{ Session::has('show_cart_dropdown') ? 'true' : 'false' }} }" x-init="$watch('darkMode', val => { localStorage.setItem('darkMode', val); document.documentElement.classList.toggle('dark', val); })" :class="{ 'dark': darkMode }">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,7 @@
       <link rel="icon" href="{{asset('image_web/'.$fav)}}">
 
       <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+      
 
       {{-- jQuery UI CSS for Datepicker --}}
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -30,7 +31,7 @@
 
       <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('darkMode') === 'true') {
             document.documentElement.classList.add('dark')
         } else {
             document.documentElement.classList.remove('dark')
@@ -436,7 +437,7 @@ display: none !important;}
                               <li><a href="{{url('doctorregister')}}" class="block bg-white text-primary-600 px-4 py-2 rounded-md text-center hover:bg-gray-100 focus:outline-none">{{__('Join as Provider')}}</a></li>
                           @endif
                           <li>
-                            <button @click="toggleDarkMode()" class="w-full flex items-center justify-between text-white hover:text-gray-200 font-medium py-2">
+                            <button @click="darkMode = !darkMode" class="w-full flex items-center justify-between text-white hover:text-gray-200 font-medium py-2">
                                 <span>Toggle Theme</span>
                                 <span class="p-2 rounded-lg hover:bg-primary-500">
                                     <svg x-show="!darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
