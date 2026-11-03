@@ -1,0 +1,12 @@
+[03-Mar-2025 18:55:45 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[03-Mar-2025 18:55:48 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[03-Mar-2025 19:54:00 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[03-Mar-2025 19:54:03 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[04-Mar-2025 04:40:07 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[04-Mar-2025 04:40:09 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[06-Mar-2025 00:16:32 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[06-Mar-2025 01:47:14 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[06-Mar-2025 06:14:46 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[06-Mar-2025 08:34:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[17-May-2025 05:09:51 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
+[17-May-2025 05:10:09 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/kumbaca6_html/vendor/cartalyst/sentinel/src/Laravel/SentinelServiceProvider.php on line 209
